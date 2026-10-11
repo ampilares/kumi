@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cli-anything-kumi"
+version = "0.1.0"
+description = "CLI-Anything agent harness for Kumi — drives the real Kumi workspace CLI."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Kumi" }]
+dependencies = ["click>=8.1"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4"]
+
+[project.scripts]
+cli-anything-kumi = "kumi_harness.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["kumi_harness*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

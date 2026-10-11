@@ -1,0 +1,17 @@
+<!--
+  Kumi app icon — original mark, not derived from any other product's branding.
+  Rounded charcoal square (#2C2C2B) with a geometric warm-white (#FBFAF8) "K".
+  Geometry is authored on a 1024x1024 grid and mirrored exactly by
+  build/make-icons.py, which rasterises the .ico / .png variants.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <rect x="0" y="0" width="1024" height="1024" rx="205" ry="205" fill="#2C2C2B"/>
+  <g fill="none" stroke="#FBFAF8" stroke-width="108" stroke-linecap="round" stroke-linejoin="round">
+    <!-- stem -->
+    <path d="M 354 280 L 354 744"/>
+    <!-- upper arm -->
+    <path d="M 408 512 L 690 280"/>
+    <!-- lower arm -->
+    <path d="M 408 512 L 690 744"/>
+  </g>
+</svg>

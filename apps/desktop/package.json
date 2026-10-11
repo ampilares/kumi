@@ -1,0 +1,53 @@
+{
+  "name": "@kumi/desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Kumi — local-only, Notion-style workspace with an agent-native CLI.",
+  "author": "Kumi",
+  "main": "out/main/index.js",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "typecheck": "tsc --noEmit -p tsconfig.web.json && tsc --noEmit -p tsconfig.node.json",
+    "test": "vitest run",
+    "icons": "python build/make-icons.py",
+    "dist": "electron-vite build && electron-builder --config electron-builder.yml --publish never",
+    "dist:win": "electron-vite build && electron-builder --config electron-builder.yml --win --publish never",
+    "dist:mac": "electron-vite build && electron-builder --config electron-builder.yml --mac --publish never",
+    "dist:linux": "electron-vite build && electron-builder --config electron-builder.yml --linux --publish never",
+    "dev:web": "node dev-web/server.mjs"
+  },
+  "dependencies": {
+    "@kumi/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@tiptap/core": "^3.30.2",
+    "@tiptap/extension-bold": "^3.30.2",
+    "@tiptap/extension-code": "^3.30.2",
+    "@tiptap/extension-document": "^3.30.2",
+    "@tiptap/extension-italic": "^3.30.2",
+    "@tiptap/extension-link": "^3.30.2",
+    "@tiptap/extension-strike": "^3.30.2",
+    "@tiptap/extension-text": "^3.30.2",
+    "@tiptap/extension-underline": "^3.30.2",
+    "@tiptap/extensions": "^3.30.2",
+    "@tiptap/pm": "^3.30.2",
+    "@tiptap/react": "^3.30.2",
+    "@types/node": "^24.10.1",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "electron": "^38.2.0",
+    "electron-builder": "^26.15.3",
+    "electron-vite": "^4.0.0",
+    "jsdom": "^30.0.1",
+    "katex": "^0.16.22",
+    "lowlight": "^3.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.0",
+    "vitest": "^3.2.7",
+    "zustand": "^5.0.3"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "@kumi/cli",
+  "version": "0.1.0",
+  "description": "kumi: headless CLI over @kumi/core — the agent-native interface to a Kumi workspace.",
+  "bin": {
+    "kumi": "dist/index.js"
+  },
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@kumi/core": "workspace:*",
+    "commander": "^12.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  }
+}

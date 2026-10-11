@@ -1,0 +1,96 @@
+# electron-builder configuration for the Kumi desktop app.
+#
+# Run via `pnpm --filter @kumi/desktop dist` (electron-vite build + electron-builder).
+#
+# Notes for future edits:
+# - The main process require()s `@kumi/core` at runtime; electron-vite's
+#   `externalizeDepsPlugin()` deliberately leaves it OUT of out/main/index.js.
+#   electron-builder therefore has to pack the production dependency tree
+#   (@kumi/core + its only dep, adm-zip) into the asar. That happens through the
+#   default node_modules collection — do not add a `!node_modules` pattern below.
+# - There are NO native modules: storage uses `node:sqlite` (built into Electron)
+#   and adm-zip is pure JS. Hence `npmRebuild: false` — nothing to rebuild, and
+#   skipping it keeps CI fast and avoids needing a toolchain on the runners.
+
+appId: app.kumi.desktop
+productName: Kumi
+copyright: Copyright © 2026 Kumi
+
+directories:
+  buildResources: build
+  output: dist
+
+# out/** is electron-vite's build output (main, preload, renderer).
+# node_modules is added by electron-builder's dependency resolution.
+files:
+  - out/**/*
+  - package.json
+  - "!**/*.map"
+  - "!**/{.eslintrc,.editorconfig,.prettierrc,tsconfig*.json}"
+  # @kumi/core is a workspace package: only its compiled dist/ is needed at runtime.
+  - "!node_modules/@kumi/core/{src,test,vitest.config.ts}"
+
+asar: true
+npmRebuild: false
+buildDependenciesFromSource: false
+
+# kumi-0.1.0-win-x64.exe, kumi-0.1.0-linux-x64.AppImage, ...
+artifactName: kumi-${version}-${os}-${arch}.${ext}
+
+win:
+  icon: build/icon.ico
+  target:
+    - target: nsis
+      arch:
+        - x64
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  allowElevation: false
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Kumi
+  deleteAppDataOnUninstall: false # the workspace lives in %USERPROFILE%\Kumi anyway
+  artifactName: kumi-${version}-${os}-${arch}-setup.${ext}
+
+mac:
+  # Config only — a .dmg cannot be produced off macOS. On a Mac runner
+  # electron-builder converts this PNG to the required .icns itself; a checked-in
+  # build/icon.icns would need macOS tooling (iconutil) to generate.
+  icon: build/icon.png
+  category: public.app-category.productivity
+  darkModeSupport: true
+  target:
+    - target: dmg
+      arch:
+        - arm64
+        - x64
+  # Unsigned, personal-use builds: do not go hunting for a keychain identity.
+  identity: null
+  hardenedRuntime: false
+  gatekeeperAssess: false
+
+dmg:
+  artifactName: kumi-${version}-${os}-${arch}.${ext}
+
+linux:
+  icon: build/icon.png
+  category: Office
+  synopsis: Local-only, Notion-style workspace
+  description: >-
+    Kumi is a local-only desktop workspace with a Notion-style block editor and
+    databases. All data lives in a single folder on your machine, and every
+    capability is also available headlessly through the `kumi` CLI.
+  maintainer: Kumi <kumi@localhost>
+  desktop:
+    entry:
+      StartupWMClass: Kumi
+  target:
+    - target: AppImage
+      arch:
+        - x64
+    - target: deb
+      arch:
+        - x64

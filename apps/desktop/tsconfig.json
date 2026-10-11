@@ -1,0 +1,20 @@
+{
+  "//": "Editor-only umbrella config. `pnpm typecheck` uses tsconfig.web.json + tsconfig.node.json.",
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "types": ["node", "electron-vite/node"],
+    "declaration": false,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@kumi/core": ["../../packages/core/src/index.ts", "../../packages/core/src/types.ts"],
+      "@renderer/*": ["src/renderer/src/*"]
+    }
+  },
+  "include": ["src", "electron.vite.config.ts"]
+}
