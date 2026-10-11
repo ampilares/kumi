@@ -11,3 +11,7 @@ coverage/
 *.db-wal
 *.db-shm
 workspaces/
+.env*
+!.env.example
+tmp/
+output/
